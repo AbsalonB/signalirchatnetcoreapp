@@ -5,24 +5,24 @@ Azure.
 The following files have the main changes about how to implement a basic chat
 with SignalR:
 -ChatHub.cs:
-This have have the implementation of two methods the BroadcastMessage and Echo.
+This has the implementation of two methods the BroadcastMessage and Echo.
 
 -Startup.cs:
 In the ConfigureServices method add the following code to link with the SignalR Resource using the endpoint that you can get when you create the resource at azure.
 ```
-        services.AddSignalR()
-       .AddAzureSignalR(options => options.Endpoints = new ServiceEndpoint[]
-       {
-            new ServiceEndpoint("<Endpoint><AccesKey>", EndpointType.Primary, "region1"),
-            new ServiceEndpoint("<Endpoint><AccesKey>", EndpointType.Secondary, "region2"),
-       });
+services.AddSignalR()
+.AddAzureSignalR(options => options.Endpoints = new ServiceEndpoint[]
+{
+    new ServiceEndpoint("<Endpoint><AccesKey>", EndpointType.Primary, "region1"),
+    new ServiceEndpoint("<Endpoint><AccesKey>", EndpointType.Secondary, "region2"),
+});
 ```
 In the Configure method add the following code:
 ```
-  app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapHub<ChatHub>("/chat");
-            });
+app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapHub<ChatHub>("/chat");
+    });
 ```
 
 -wwwroot/index.html
